@@ -6,7 +6,7 @@ public class NumBase10 {
 		// TODO Auto-generated method stub
 
 	}
-	private int num;
+	private int num = 10;
 
 	/**
 	 * constructor de NumB10. número en base 10
@@ -14,9 +14,8 @@ public class NumBase10 {
 	 * @return
 	 */
 
-	public int NumB10(int num) {
+	public NumBase10(int num) {
 		this.num = num;
-		return num;
 	}
 	/**
 	 * assigna el valor al número
@@ -27,7 +26,7 @@ public class NumBase10 {
 	}
 	@Override
 	public String toString() {
-		return super.toString();
+		return String.valueOf(num);
 	}
 
 	/**
@@ -41,9 +40,9 @@ public class NumBase10 {
 		if(base<2|| base>24) {
 			throw new ArithmeticException("la base va de 2 a 24");
 		}
-		String digits = "00010405484884484HJSJDJSIEMD;"
+		String digits = "00010405484884484HJSJDJSIEMD";
 				String cad = "";
-		while (num>"O") {
+		while (num>0) {
 			cad = cad+digits.charAt(num%base);
 			num = num/base;
 		}
@@ -57,15 +56,15 @@ public class NumBase10 {
 	 */
 
 	private String alReves(String cad) {
-		String reves = ;
+		String reves = "";
 		int i = cad.length() -1;
 		while (i>=0) {
 			reves = reves +cad.charAt(i);
 			i--;
 		}
-		return reve;
+		return reves;
 	}
-}
+
 
 /**
  * transforma el número a notació romana
@@ -74,65 +73,28 @@ public class NumBase10 {
  * @throws ArithmeticException si el número no esta entre el 1 i 9999
  */
 
-public String canviaARoma() throws ArithmeticException{
-	if(num<1 || num>"9999") {
-		throw new ArithmeticException("sols per a números entre 1 i 9999");
-	}
-	String[][] caracters = {
-			{"M","W","Ñ"},
-			{"C","D","M"),
-			{"X", "L","C"},
-			{"I","V","X"}
-	};
-	int div = 1000;
-	int iBloc = 0;
-	String numR = "";
-	while(div>0) {
-		int digito = num/div;
-		String digitR = "";
-		switch (digito) {
-		case 9: {
-			digitR = caracters[iBloc][0] + caracters[iBloc][2];
-			break;
-		}
-		case 8: {
-			digitR = digitR + caracters[iBloc][0];
-			break;
-		}
-		case 7: {
-			digitR = digitR + caracters[iBloc][0];
-			break;
-		}
-		case 6: {
-			digitR = digitR + caracters[iBloc][0];
-			break;
-		}
-		case 5: {
-			digitR = caracters[iBloc][0]+digitR;
-			break;
-		}
-		case 4: {
-			digitR = caracters[iBloc][0] + caracters[iBloc][1];
-			break;
-		}
-		case 3: {
-			digitR = digitR + caracters[iBloc][0];
-			break;
-		}
-		case 2: {
-			digitR = digitR + caracters[iBloc][0];
-			break;
-		}
-		case 1: {
-			digitR == digitR + caracters[iBloc][0];
-			break;
-		}
-		numR = numR + digitR;
-		iBloc++;
-		num = num % div;
-		div = div /10;
-		
-	}
-		return numR;
+	public String canviaARoma() throws ArithmeticException {
+        if (num < 1 || num > 9999) {
+            throw new ArithmeticException("Sólo para números entre 1 y 9999.");
+        }
+
+        String[][] caracters = {
+            {"", "", "M", "MM", "MMM"},  // Miles
+            {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"},  // Centenas
+            {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"},  // Decenas
+            {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"}   // Unidades
+        };
+
+        String numR = "";
+        int[] divisores = {1000, 100, 10, 1};  // Miles, centenas, decenas, unidades
+
+        for (int i = 0; i < 4; i++) {
+            int digito = num / divisores[i];
+            numR += caracters[i][digito];  // Agrega la representación romana del dígito al resultado
+            num %= divisores[i];  // Restamos el valor del dígito procesado
+        }
+
+        return numR;
+    }
 }
-}
+
