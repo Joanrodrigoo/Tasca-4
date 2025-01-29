@@ -1,0 +1,62 @@
+package pepe;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class GuijarrosEnLaBalanza {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        while(true) {
+            int entrada = sc.nextInt();  // Número de guijarros
+
+            if(entrada == 0) {
+                break;  // Termina el programa si la entrada es 0
+            }
+
+            ArrayList<Integer> pesos = new ArrayList<>();
+            int pesoTotal = 0;
+
+            // Leer los pesos de los guijarros
+            for (int i = 0; i < entrada; i++) {
+                int peso = sc.nextInt();
+                pesos.add(peso);
+                pesoTotal += peso;
+            }
+
+            // Si el peso total es impar, no podemos dividirlo en dos grupos iguales
+            if (pesoTotal % 2 != 0) {
+                System.out.println("NO");
+                continue;
+            }
+
+            int mitad = pesoTotal / 2;
+
+            // Usamos un ArrayList para la programación dinámica
+            ArrayList<Boolean> dp = new ArrayList<>();
+            for (int i = 0; i <= mitad; i++) {
+                dp.add(false);  // Inicializamos todos los valores en 'false'
+            }
+            dp.set(0, true);  // Siempre podemos hacer una partición de peso 0 (sin guijarros)
+
+            // Para cada guijarro, actualizamos el ArrayList dp
+            for (int i = 0; i < pesos.size(); i++) {
+                // Iterar desde la mitad hacia abajo para evitar sobrescribir resultados previos
+                for (int j = mitad; j >= pesos.get(i); j--) {
+                    if (dp.get(j - pesos.get(i))) {
+                        dp.set(j, true);
+                    }
+                }
+            }
+
+            // Si es posible obtener la mitad del peso, entonces sí es posible hacer la partición
+            if (dp.get(mitad)) {
+                System.out.println("SI");
+            } else {
+                System.out.println("NO");
+            }
+        }
+
+        sc.close();
+    }
+}
