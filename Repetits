@@ -1,0 +1,42 @@
+package pepe;
+
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+public class Repetits {
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+
+
+		int casos = sc.nextInt();
+		for (int i = 0; i < casos; i++) {
+			int n = sc.nextInt();
+
+			boolean repetido = false;
+
+			Set<Integer> rep = new HashSet<>();
+
+			for (int j = 0; j < n; j++) {
+				int num = sc.nextInt();
+				rep.add(num);
+
+			}
+			if (n==rep.size()) {
+				repetido = false;
+			}
+			else {
+				repetido = true;
+			}
+			
+			String resultado = "";
+			
+			resultado = repetido ? "SI" : "NO";
+			System.out.println(resultado);
+
+		}
+		sc.close();
+	}
+	
+}
