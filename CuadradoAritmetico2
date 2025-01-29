@@ -1,0 +1,59 @@
+package matrius;
+
+import java.util.Scanner;
+
+
+public class CuadradoAritmetico2 {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int[][] m = new int[3][3];
+        String aux;
+
+        // Lectura de datos
+        for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m[i].length; j++) {
+                aux = sc.next();
+
+                if (aux.equals("X")) {
+                    m[i][j] = Integer.MAX_VALUE;  // Marca los valores desconocidos con un valor muy alto
+                } else {
+                    m[i][j] = Integer.parseInt(aux);  // Asigna el valor si no es "X"
+                }
+            }
+        }
+
+        // Rellenar los valores de la cuadrícula
+        for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m[i].length; j++) {
+                if (m[i][j] == Integer.MAX_VALUE) {
+                    // Si la celda está vacía, calculamos el valor faltante
+
+                    // Si el valor está en la primera columna (columna 0)
+                    if (j == 0) {
+                        m[i][j] = m[i][1] - (m[i][2] - m[i][1]);
+                    }
+
+                    // Si el valor está en la segunda columna (columna 1)
+                    if (j == 1) {
+                        m[i][j] = (m[i][0] + m[i][2]) / 2;
+                    }
+
+                    // Si el valor está en la tercera columna (columna 2)
+                    if (j == 2) {
+                        m[i][j] = m[i][1] + (m[i][1] - m[i][0]);
+                    }
+                }
+            }
+        }
+
+        // Imprimir la solución
+        for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m[i].length; j++) {
+                System.out.print(m[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
