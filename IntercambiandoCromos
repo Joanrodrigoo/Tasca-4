@@ -1,0 +1,97 @@
+package pepe;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+
+public class IntercambiandoCromos {
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+
+		int casos = sc.nextInt();
+
+		for (int i = 0; i < casos; i++) {
+
+
+			//Cromos Alejandro
+			int rep = sc.nextInt();
+			Map<Integer, Integer> mapAlejandro = new HashMap<>();
+
+			for (int j = 0; j < rep; j++) {
+				int alejandro = sc.nextInt();
+				if (mapAlejandro.containsKey(alejandro)) {
+					mapAlejandro.put(alejandro, mapAlejandro.get(alejandro) + 1);
+				} 
+				else {
+					mapAlejandro.put(alejandro, 1);
+				}	
+			}
+
+
+			//Cromos Mateo
+			int cromM = sc.nextInt();
+			Map<Integer, Integer> mapMateo = new HashMap<>();
+
+			for (int j = 0; j < cromM; j++) {
+				int mateo =sc.nextInt(); 
+				if (mapMateo.containsKey(mateo)) {
+					mapMateo.put(mateo, mapMateo.get(mateo) + 1);
+				} 
+				else {
+					mapMateo.put(mateo, 1);
+				}	
+			}
+
+
+			//Determinar los cromos de Alejandro que tiene repetidos y no tiene Mateo
+
+			List<Integer> alejandroIntercambio = new ArrayList<>();
+			for (Map.Entry<Integer, Integer> entry : mapAlejandro.entrySet()) {
+				if (entry.getValue() > 1 && !mapMateo.containsKey(entry.getKey())) {
+					alejandroIntercambio.add(entry.getKey());
+				}
+			}
+
+			// Determinar los cromos de Mateo que tiene repetidos y no tiene Alejandro
+			List<Integer> mateoIntercambio = new ArrayList<>();
+			for (Map.Entry<Integer, Integer> entry : mapMateo.entrySet()) {
+				if (entry.getValue() > 1 && !mapAlejandro.containsKey(entry.getKey())) {
+					mateoIntercambio.add(entry.getKey());
+				}
+			}
+			//Imprimir los cromos que puede intercambiar Alejandro
+			if (alejandroIntercambio.isEmpty()) {
+				System.out.println("Nada que intercambiar");
+			} else {
+				Collections.sort(alejandroIntercambio);
+				for (int j = 0; j < alejandroIntercambio.size(); j++) {
+					System.out.print(alejandroIntercambio.get(j));
+					if (j < alejandroIntercambio.size() - 1) {
+						System.out.print(" ");
+					}
+				}
+				System.out.println();
+			}
+
+			//Imprimir los cromos que puede intercambiar Mateo
+			if (mateoIntercambio.isEmpty()) {
+				System.out.println("Nada que intercambiar");
+			} else {
+				Collections.sort(mateoIntercambio);
+				for (int j = 0; j < mateoIntercambio.size(); j++) {
+					System.out.print(mateoIntercambio.get(j));
+					if (j < mateoIntercambio.size() - 1) {
+						System.out.print(" ");
+					}
+				}
+				System.out.println();
+			}
+		}
+		sc.close();
+	}
+}
